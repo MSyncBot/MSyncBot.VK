@@ -1,8 +1,4 @@
-﻿using MConfiguration;
-using MLoggerService;
-using VkNet;
-using VkNet.Enums.Filters;
-using VkNet.Model;
+﻿using MLoggerService;
 
 namespace MSyncBot.VK;
 
