@@ -8,6 +8,8 @@ public class MessageHandler
 {
     public async Task HandleMessagesAsync(VkApi bot, MessageNew message, MLogger logger)
     {
+        logger.LogInformation($"{message.Message.PeerId} написал(а): {message.Message.Text}");
+        
         await bot.Messages.SendAsync(new MessagesSendParams()
         {
             Message = message.Message.Text,
