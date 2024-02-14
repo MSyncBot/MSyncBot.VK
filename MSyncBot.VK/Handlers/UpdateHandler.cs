@@ -1,11 +1,12 @@
-﻿using VkNet;
+﻿using MLoggerService;
+using VkNet;
 using VkNet.Model;
 
 namespace MSyncBot.VK.Handlers;
 
 public abstract class UpdateHandler
 {
-    public static async Task HandleUpdatesAsync(VkApi bot, BotsLongPollHistoryResponse updates)
+    public static async Task HandleUpdatesAsync(VkApi bot, BotsLongPollHistoryResponse updates, MLogger logger)
     {
         foreach (var update in updates.Updates)
         {
@@ -13,7 +14,7 @@ public abstract class UpdateHandler
             {
                 case MessageNew message:
                 {
-                    await new MessageHandler().HandleMessagesAsync(bot, message);
+                    await new MessageHandler().HandleMessagesAsync(bot, message, logger);
                     return;
                 }
             }
