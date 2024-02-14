@@ -1,15 +1,10 @@
-﻿using MSyncBot.VK.Events;
-using VkNet.Model;
+﻿using VkNet.Model;
 
 namespace MSyncBot.VK.Handlers;
 
-public class UpdateHandler
+public abstract class UpdateHandler
 {
-    // Delegate for new incoming messages
-    public delegate Task MessageNewEventHandler(MessageNewEventArgs args);
-    public event MessageNewEventHandler? OnMessageNew;
-    
-    public async Task HandleUpdatesAsync(BotsLongPollHistoryResponse updates)
+    public static async Task HandleUpdatesAsync(BotsLongPollHistoryResponse updates)
     {
         foreach (var update in updates.Updates)
         {
