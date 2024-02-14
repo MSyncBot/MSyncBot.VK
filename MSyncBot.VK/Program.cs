@@ -1,10 +1,5 @@
-﻿using System.Text.Json;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using VkNet;
+﻿using VkNet;
 using VkNet.Enums.Filters;
-using VkNet.Enums.StringEnums;
 using VkNet.Model;
 
 namespace MSyncBot.VK;
