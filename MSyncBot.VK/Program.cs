@@ -40,6 +40,6 @@ internal abstract class Program
         
         logger.LogInformation("Press any key to close program...");
         Console.ReadKey();
-        bot.StopAsync();
+        bot.StopAsync().Wait();
     }
 }
