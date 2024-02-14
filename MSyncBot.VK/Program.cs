@@ -15,7 +15,7 @@ internal abstract class Program
         logger.LogSuccess("Logger successfully initialized.");
 
         logger.LogProcess("Initializing program configuration...");
-        var configManager = new ConfigManager();
+        /*var configManager = new ConfigManager();
         var programConfig = new ProgramConfiguration();
         foreach (var property in typeof(ProgramConfiguration).GetProperties())
         {
@@ -31,7 +31,7 @@ internal abstract class Program
 
             property.SetValue(programConfig, Convert.ChangeType(data, property.PropertyType));
         }
-        logger.LogSuccess("Program configuration has been initialized.");
+        logger.LogSuccess("Program configuration has been initialized.");*/
 
         var bot = new Bot(programConfig.AccessToken, programConfig.GroupId, logger);
         _ = Task.Run(async () => await bot.StartAsync());
