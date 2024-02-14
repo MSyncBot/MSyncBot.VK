@@ -40,6 +40,7 @@ namespace MSyncBot.VK
                     Wait = 25
                 });
 
+                // Handle updates
                 _ = Task.Run(async () => await new UpdateHandler().HandleUpdatesAsync(updates));
             }
 

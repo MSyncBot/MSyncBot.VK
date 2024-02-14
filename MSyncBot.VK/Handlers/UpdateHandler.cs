@@ -11,7 +11,6 @@ public class UpdateHandler
     
     public async Task HandleUpdatesAsync(BotsLongPollHistoryResponse updates)
     {
-        // Handle updates
         foreach (var update in updates.Updates)
         {
             switch (update.Instance)
