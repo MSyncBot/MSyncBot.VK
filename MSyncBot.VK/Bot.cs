@@ -41,7 +41,7 @@ namespace MSyncBot.VK
                 });
 
                 // Handle updates
-                _ = Task.Run(async () => await new UpdateHandler().HandleUpdatesAsync(updates));
+                _ = Task.Run(async () => await UpdateHandler.HandleUpdatesAsync(updates));
             }
 
             _logger.LogError("Bot stopped");
