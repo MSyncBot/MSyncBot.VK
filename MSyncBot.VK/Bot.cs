@@ -9,10 +9,11 @@ namespace MSyncBot.VK
     public class Bot
     {
         private readonly VkApi _bot;
+        private readonly ulong _groupId;
         private readonly MLogger _logger;
         private readonly CancellationTokenSource _cancellationTokenSource;
 
-        public Bot(string accessToken, MLogger logger)
+        public Bot(string accessToken, ulong groupId, MLogger logger)
         {
             _bot = new VkApi();
             _bot.Authorize(new ApiAuthParams
@@ -20,6 +21,7 @@ namespace MSyncBot.VK
                 AccessToken = accessToken,
                 Settings = Settings.All,
             });
+            _groupId = groupId;
             _logger = logger;
             _cancellationTokenSource = new CancellationTokenSource();
         }
@@ -31,7 +33,7 @@ namespace MSyncBot.VK
             {
                 // Getting updates
                 var longPollServer =
-                    await _bot.Groups.GetLongPollServerAsync(groupId: 224017484); // my group (MSyncBot)
+                    await _bot.Groups.GetLongPollServerAsync(groupId: _groupId);
                 var updates = await _bot.Groups.GetBotsLongPollHistoryAsync(new BotsLongPollHistoryParams
                 {
                     Key = longPollServer.Key,
