@@ -14,6 +14,7 @@ namespace MSyncBot.VK
 
         // Delegate for new incoming messages
         public delegate Task MessageNewEventHandler(MessageNewEventArgs args);
+
         public event MessageNewEventHandler? OnMessageNew;
 
         public Bot(string accessToken, MLogger logger)
@@ -34,7 +35,8 @@ namespace MSyncBot.VK
             while (!_cancellationTokenSource.Token.IsCancellationRequested)
             {
                 // Getting updates
-                var longPollServer = await _api.Groups.GetLongPollServerAsync(groupId: 224017484); // my group (MSyncBot)
+                var longPollServer =
+                    await _api.Groups.GetLongPollServerAsync(groupId: 224017484); // my group (MSyncBot)
                 var updates = await _api.Groups.GetBotsLongPollHistoryAsync(new BotsLongPollHistoryParams
                 {
                     Key = longPollServer.Key,
@@ -46,12 +48,15 @@ namespace MSyncBot.VK
                 // Handle updates
                 foreach (var update in updates.Updates)
                 {
-                    if (update.Instance is MessageNew message)
+                    switch (update.Instance)
                     {
-                        // Call update incoming message
-                        var messageNewEventArgs = new MessageNewEventArgs(message);
-                        await OnMessageNew?.Invoke(messageNewEventArgs)!;
-                        break;
+                        case MessageNew message:
+                        {
+                            // Call update incoming message
+                            var messageNewEventArgs = new MessageNewEventArgs(message);
+                            await OnMessageNew?.Invoke(messageNewEventArgs)!;
+                            break;
+                        }
                     }
                 }
             }
