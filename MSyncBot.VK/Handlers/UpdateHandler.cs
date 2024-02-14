@@ -12,10 +12,8 @@ public abstract class UpdateHandler
             {
                 case MessageNew message:
                 {
-                    // Call update incoming message
-                    var messageNewEventArgs = new MessageNewEventArgs(message);
-                    await OnMessageNew?.Invoke(messageNewEventArgs)!;
-                    break;
+                    await new MessageHandler().HandleMessagesAsync(message);
+                    return;
                 }
             }
         }
