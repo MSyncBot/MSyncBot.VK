@@ -14,4 +14,8 @@
       <PackageReference Include="VkNet" Version="1.78.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Handlers\" />
+    </ItemGroup>
+
 </Project>
