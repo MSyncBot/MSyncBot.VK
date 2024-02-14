@@ -32,7 +32,14 @@ internal abstract class Program
             property.SetValue(programConfig, Convert.ChangeType(data, property.PropertyType));
         }
         logger.LogSuccess("Program configuration has been initialized.");
+
+        var bot = new Bot(programConfig.AccessToken, programConfig.GroupId, logger);
+        _ = Task.Run(async () => await bot.StartAsync());
         
+        Thread.Sleep(1500);
         
+        logger.LogInformation("Press any key to close program...");
+        Console.ReadKey();
+        bot.StopAsync();
     }
 }
