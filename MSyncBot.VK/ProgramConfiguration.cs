@@ -2,6 +2,6 @@
 
 public class ProgramConfiguration
 {
-    public string? AccessToken;
-    public ulong GroupId;
+    public string? AccessToken { get; set; }
+    public ulong GroupId { get; set; }
 }
