@@ -8,14 +8,14 @@ namespace MSyncBot.VK
 {
     public class Bot
     {
-        private readonly VkApi _api;
+        private readonly VkApi _bot;
         private readonly MLogger _logger;
         private readonly CancellationTokenSource _cancellationTokenSource;
 
         public Bot(string accessToken, MLogger logger)
         {
-            _api = new VkApi();
-            _api.Authorize(new ApiAuthParams
+            _bot = new VkApi();
+            _bot.Authorize(new ApiAuthParams
             {
                 AccessToken = accessToken,
                 Settings = Settings.All,
@@ -31,8 +31,8 @@ namespace MSyncBot.VK
             {
                 // Getting updates
                 var longPollServer =
-                    await _api.Groups.GetLongPollServerAsync(groupId: 224017484); // my group (MSyncBot)
-                var updates = await _api.Groups.GetBotsLongPollHistoryAsync(new BotsLongPollHistoryParams
+                    await _bot.Groups.GetLongPollServerAsync(groupId: 224017484); // my group (MSyncBot)
+                var updates = await _bot.Groups.GetBotsLongPollHistoryAsync(new BotsLongPollHistoryParams
                 {
                     Key = longPollServer.Key,
                     Server = longPollServer.Server,
@@ -41,7 +41,7 @@ namespace MSyncBot.VK
                 });
 
                 // Handle updates
-                _ = Task.Run(async () => await UpdateHandler.HandleUpdatesAsync(updates));
+                _ = Task.Run(async () => await UpdateHandler.HandleUpdatesAsync(_bot, updates));
             }
 
             _logger.LogError("Bot stopped");
