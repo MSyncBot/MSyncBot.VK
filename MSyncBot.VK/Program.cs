@@ -32,7 +32,7 @@ internal abstract class Program
         var bot = new Bot(programConfig.AccessToken, programConfig.GroupId, logger);
         _ = Task.Run(async () => await bot.StartAsync());
         
-        Thread.Sleep(1500);
+        Thread.Sleep(1500); // waiting for starting bot
         
         logger.LogInformation("Press any key to close program...");
         Console.ReadKey();
