@@ -11,9 +11,10 @@ namespace MSyncBot.VK
     {
         private readonly VkApi _bot;
         private readonly ulong _groupId;
-        private readonly MLogger _logger;
         private readonly CancellationTokenSource _cancellationTokenSource;
-        private ServerHandler Server { get; set; }
+        
+        public static MLogger Logger;
+        public static ServerHandler? Server { get; private set; }
 
         public Bot(
             string accessToken,
@@ -30,16 +31,16 @@ namespace MSyncBot.VK
             });
             _groupId = groupId;
             
-            _logger = logger;
+            Logger = logger;
             
-            Server = new ServerHandler(serverIp, serverPort, _logger);
+            Server = new ServerHandler(serverIp, serverPort);
             
             _cancellationTokenSource = new CancellationTokenSource();
         }
 
         public async Task StartAsync()
         {
-            _logger.LogSuccess("Bot started.");
+            Logger.LogSuccess("Bot started.");
             while (!_cancellationTokenSource.Token.IsCancellationRequested)
             {
                 // Getting updates
@@ -54,10 +55,10 @@ namespace MSyncBot.VK
                 });
 
                 // Handle updates
-                _ = Task.Run(() => UpdateHandler.HandleUpdatesAsync(_bot, updates, _logger));
+                _ = Task.Run(() => UpdateHandler.HandleUpdatesAsync(_bot, updates));
             }
 
-            _logger.LogError("Bot stopped");
+            Logger.LogError("Bot stopped");
         }
 
         public async Task StopAsync()
