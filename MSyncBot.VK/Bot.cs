@@ -39,7 +39,7 @@ namespace MSyncBot.VK
 
         public async Task StartAsync()
         {
-            _logger.LogSuccess("Bot started");
+            _logger.LogSuccess("Bot started.");
             while (!_cancellationTokenSource.Token.IsCancellationRequested)
             {
                 // Getting updates
