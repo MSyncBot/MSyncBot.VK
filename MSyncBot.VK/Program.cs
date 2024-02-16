@@ -32,7 +32,12 @@ internal abstract class Program
 
         logger.LogSuccess("Program configuration has been initialized.");
 
-        var bot = new Bot(programConfig.AccessToken, programConfig.GroupId, logger);
+        var bot = new Bot(
+            programConfig.AccessToken, 
+            programConfig.GroupId, 
+            programConfig.ServerIp,
+            programConfig.ServerPort,
+            logger);
         _ = Task.Run(async () => await bot.StartAsync());
 
         Thread.Sleep(1500); // waiting for starting bot
