@@ -35,7 +35,7 @@ public class ServerHandler(string? address, int port) : WsClient(address, port)
         Bot.Logger.LogError($"Chat WebSocket client disconnected a session with Id {Id}");
 
     public override void OnWsReceived(byte[] buffer, long offset, long size) =>
-        new ReceivedMessageHandler().ReceiveMessage(buffer, offset, size, Bot.Logger);
+        new ReceivedMessageHandler().ReceiveMessage(buffer, offset, size);
 
     protected override void OnDisconnected()
     {
