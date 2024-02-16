@@ -8,9 +8,9 @@ namespace MSyncBot.VK.Handlers.Server;
 
 public class ReceivedMessageHandler
 {
-    private static ulong _lastUserId;
+    public static ulong _lastUserId;
 
-    public void ReceiveMessage(byte[] buffer, long offset, long size, MLogger logger) =>
+    public void ReceiveMessage(byte[] buffer, long offset, long size) =>
         _ = Task.Run(async () =>
         {
             var jsonMessage = Encoding.UTF8.GetString(buffer, (int)offset, (int)size);
@@ -22,7 +22,7 @@ public class ReceivedMessageHandler
             switch (message.Type)
             {
                 case MessageType.Text:
-                    logger.LogInformation(
+                    Bot.Logger.LogInformation(
                         $"Received message from {message.Messenger.Name}: " +
                         $"{message.User.FirstName} ({message.User.Id}) - {message.Text}");
 
@@ -30,7 +30,7 @@ public class ReceivedMessageHandler
 
                 default:
                 {
-                    logger.LogInformation(
+                    Bot.Logger.LogInformation(
                         $"Received album from {message.Messenger.Name} with {message.Files.Count} files: " +
                         $"{message.User.FirstName} ({message.User.Id})");
 
