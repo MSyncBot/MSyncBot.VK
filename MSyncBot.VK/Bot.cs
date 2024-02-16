@@ -63,10 +63,9 @@ namespace MSyncBot.VK
 
         public async Task StopAsync()
         {
-            _logger.LogProcess("Stopping bot...");
-            _cancellationTokenSource.Cancel();
-            await Task.Delay(1000); // Waiting 1 second until all operations shutting down
-            _logger.LogSuccess("Bot stopped");
+            Logger.LogProcess("Stopping bot...");
+            await _cancellationTokenSource.CancelAsync();
+            Logger.LogSuccess("Bot stopped");
         }
     }
 }
