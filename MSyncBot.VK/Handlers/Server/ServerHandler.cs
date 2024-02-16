@@ -1,10 +1,9 @@
 ﻿using System.Net.Sockets;
-using MLoggerService;
 using NetCoreServer;
 
 namespace MSyncBot.VK.Handlers.Server;
 
-public class ServerHandler(string? address, int port, MLogger logger) : WsClient(address, port)
+public class ServerHandler(string? address, int port) : WsClient(address, port)
 {
     private bool _stop;
 
@@ -30,19 +29,19 @@ public class ServerHandler(string? address, int port, MLogger logger) : WsClient
     }
 
     public override void OnWsConnected(HttpResponse response) =>
-        logger.LogSuccess($"Chat WebSocket client connected a new session with Id {Id}");
+        Bot.Logger.LogSuccess($"Chat WebSocket client connected a new session with Id {Id}");
 
     public override void OnWsDisconnected() =>
-        logger.LogError($"Chat WebSocket client disconnected a session with Id {Id}");
+        Bot.Logger.LogError($"Chat WebSocket client disconnected a session with Id {Id}");
 
     public override void OnWsReceived(byte[] buffer, long offset, long size) =>
-        new ReceivedMessageHandler().ReceiveMessage(buffer, offset, size, logger);
+        new ReceivedMessageHandler().ReceiveMessage(buffer, offset, size, Bot.Logger);
 
     protected override void OnDisconnected()
     {
         base.OnDisconnected();
 
-        logger.LogError($"Chat WebSocket client disconnected a session with Id {Id}");
+        Bot.Logger.LogError($"Chat WebSocket client disconnected a session with Id {Id}");
 
         Thread.Sleep(1000);
 
@@ -51,5 +50,5 @@ public class ServerHandler(string? address, int port, MLogger logger) : WsClient
     }
 
     protected override void OnError(SocketError error) =>
-        logger.LogError($"Chat WebSocket client caught an error with code {error}");
+        Bot.Logger.LogError($"Chat WebSocket client caught an error with code {error}");
 }
