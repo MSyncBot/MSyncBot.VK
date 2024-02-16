@@ -6,7 +6,7 @@ namespace MSyncBot.VK.Handlers;
 
 public abstract class UpdateHandler
 {
-    public static async Task HandleUpdatesAsync(VkApi bot, BotsLongPollHistoryResponse updates, MLogger logger)
+    public static void HandleUpdatesAsync(VkApi bot, BotsLongPollHistoryResponse updates, MLogger logger)
     {
         foreach (var update in updates.Updates)
         {
@@ -14,7 +14,7 @@ public abstract class UpdateHandler
             {
                 case MessageNew message:
                 {
-                    await new MessageHandler().HandleMessagesAsync(bot, message, logger);
+                    _ = Task.Run(async () => await new MessageHandler().HandleMessagesAsync(bot, message, logger));
                     return;
                 }
             }
