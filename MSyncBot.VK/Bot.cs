@@ -41,6 +41,10 @@ namespace MSyncBot.VK
         public async Task StartAsync()
         {
             Logger.LogSuccess("Bot started.");
+            
+            // Connecting to the server
+            _ = Task.Run(() => Server.ConnectAsync());
+            
             while (!_cancellationTokenSource.Token.IsCancellationRequested)
             {
                 // Getting updates
