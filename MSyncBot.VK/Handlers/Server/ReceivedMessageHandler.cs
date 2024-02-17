@@ -3,6 +3,9 @@ using System.Text.Json;
 using MLoggerService;
 using MSyncBot.Types;
 using MSyncBot.Types.Enums;
+using VkNet;
+using VkNet.Model;
+using Message = MSyncBot.Types.Message;
 
 namespace MSyncBot.VK.Handlers.Server;
 
@@ -10,7 +13,7 @@ public class ReceivedMessageHandler
 {
     public static ulong _lastUserId;
 
-    public void ReceiveMessage(byte[] buffer, long offset, long size) =>
+    public void ReceiveMessage(byte[] buffer, long offset, long size, VkApi bot) =>
         _ = Task.Run(async () =>
         {
             var jsonMessage = Encoding.UTF8.GetString(buffer, (int)offset, (int)size);

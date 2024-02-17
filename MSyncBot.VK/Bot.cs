@@ -33,7 +33,7 @@ namespace MSyncBot.VK
             
             Logger = logger;
             
-            Server = new ServerHandler(serverIp, serverPort);
+            Server = new ServerHandler(serverIp, serverPort, _bot);
             
             _cancellationTokenSource = new CancellationTokenSource();
         }

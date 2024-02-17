@@ -3,7 +3,7 @@ using NetCoreServer;
 
 namespace MSyncBot.VK.Handlers.Server;
 
-public class ServerHandler(string? address, int port) : WsClient(address, port)
+public class ServerHandler(string? address, int port, VkApi bot) : WsClient(address, port)
 {
     private bool _stop;
 
@@ -35,7 +35,7 @@ public class ServerHandler(string? address, int port) : WsClient(address, port)
         Bot.Logger.LogError($"Chat WebSocket client disconnected a session with Id {Id}");
 
     public override void OnWsReceived(byte[] buffer, long offset, long size) =>
-        new ReceivedMessageHandler().ReceiveMessage(buffer, offset, size);
+        new ReceivedMessageHandler().ReceiveMessage(buffer, offset, size, bot);
 
     protected override void OnDisconnected()
     {
