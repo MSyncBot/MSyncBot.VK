@@ -26,6 +26,14 @@ public class ReceivedMessageHandler
                     Bot.Logger.LogInformation(
                         $"Received message from {message.Messenger.Name}: " +
                         $"{message.User.FirstName} ({message.User.Id}) - {message.Text}");
+                    
+                    await bot.Messages.SendAsync(new MessagesSendParams()
+                    {
+                        Message =
+                            $"{message.Messenger.Type}: {message.User.FirstName} {message.User.LastName}\n{message.Text}",
+                        PeerId = 2000000002,
+                        RandomId = new Random().Next(0, 99999)
+                    });
 
                     break;
 
