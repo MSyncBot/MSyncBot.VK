@@ -31,7 +31,7 @@ public class MessageHandler
                 ProfileFields.FirstName | ProfileFields.LastName,
                 NameCase.Nom);
             var user = users[0];
-            ReceivedMessageHandler._lastUserId = (ulong)user.Id!;
+            ReceivedMessageHandler.LastUserId = (ulong)user.Id!;
             
             var attachments = message.Message.Attachments;
             switch (attachments.Count)
@@ -56,7 +56,7 @@ public class MessageHandler
                         {
                             LastName = user.LastName
                         },
-                        new Chat(chat.Title, (ulong)chat.Id)
+                        new Chat(string.Empty, 1)
                     );
                     fileMessage.Files.Add(downloadedFile);
                     fileMessage.Text = message.Message.Text;
@@ -78,7 +78,7 @@ public class MessageHandler
                         {
                             LastName = user.LastName
                         },
-                        new Chat(chat.Title, (ulong)chat.Id)
+                        new Chat(string.Empty, 1)
                     );
                     albumMessage.Files.AddRange(downloadedFiles!);
                     albumMessage.Text = message.Message.Text;
@@ -96,7 +96,7 @@ public class MessageHandler
                 {
                     LastName = user.LastName
                 },
-                new Chat(chat.Title, (ulong)chat.Id)
+                new Chat(string.Empty, 1)
             )
             {
                 Text = message.Message.Text
