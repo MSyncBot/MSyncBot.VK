@@ -1,5 +1,6 @@
 ﻿using System.Net.Sockets;
 using NetCoreServer;
+using VkNet;
 
 namespace MSyncBot.VK.Handlers.Server;
 
