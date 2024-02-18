@@ -9,7 +9,7 @@ namespace MSyncBot.VK.Handlers.Server;
 
 public class ReceivedMessageHandler
 {
-    public static ulong LastUserId;
+    public static ulong LastUserId { get; set; }
 
     public void ReceiveMessage(byte[] buffer, long offset, long size, VkApi bot) =>
         _ = Task.Run(async () =>
