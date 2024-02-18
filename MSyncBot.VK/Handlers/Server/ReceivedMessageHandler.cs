@@ -27,10 +27,13 @@ public class ReceivedMessageHandler
                         $"Received message from {message.Messenger.Name}: " +
                         $"{message.User.FirstName} ({message.User.Id}) - {message.Text}");
                     
+                    var messageText = LastUserId != message.User.Id
+                        ? $"{message.Messenger.Type}: {message.User.FirstName} {message.User.LastName}\n{message.Text}"
+                        : message.Text;
+                    
                     await bot.Messages.SendAsync(new MessagesSendParams()
                     {
-                        Message =
-                            $"{message.Messenger.Type}: {message.User.FirstName} {message.User.LastName}\n{message.Text}",
+                        Message = messageText,
                         PeerId = 2000000002,
                         RandomId = new Random().Next(0, 99999)
                     });
